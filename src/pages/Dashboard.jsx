@@ -25,6 +25,10 @@ const addTask = () => {
 
   setNewTask("")
 }
+const deleteTask = (id) => {
+  const updatedTasks = tasks.filter((task) => task.id !== id)
+  setTasks(updatedTasks)
+}
   return (
     <div>
       <input
@@ -41,11 +45,17 @@ const addTask = () => {
         <div className="column pending">
           <h3>Pending</h3>
 
-          {tasks.map((task) => (
-            <div key={task.id}>
-              {task.title}
-            </div>
-          ))}
+  {tasks.map((task) => (
+  <div key={task.id}>
+    {task.title}
+
+    <button onClick={() => deleteTask(task.id)}>
+      ❌
+    </button>
+  </div>
+))}
+
+        
         </div>
 
         <div className="column progress">
@@ -54,6 +64,7 @@ const addTask = () => {
 
         <div className="column completed">
           <h3>Completed</h3>
+
         </div>
       </div>
     </div>

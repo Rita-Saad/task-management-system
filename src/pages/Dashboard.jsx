@@ -13,7 +13,18 @@ function Dashboard() {
   ])
 
   const [newTask, setNewTask] = useState("")
+const addTask = () => {
+  if (newTask.trim() === "") return
 
+  const newTaskObject = {
+    id: Date.now(),
+    title: newTask
+  }
+
+  setTasks([...tasks, newTaskObject])
+
+  setNewTask("")
+}
   return (
     <div>
       <input
@@ -22,6 +33,9 @@ function Dashboard() {
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
       />
+    
+
+<button onClick={addTask}>Add Task</button>
 
       <div className="dashboard">
         <div className="column pending">

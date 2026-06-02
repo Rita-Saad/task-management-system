@@ -25,6 +25,25 @@ const addTask = () => {
 
   setNewTask("")
 }
+const editTask = (id) => {
+  const newTitle = prompt("Enter new task title")
+  
+
+  if (!newTitle) return
+
+  const updatedTasks = tasks.map((task) => {
+    if (task.id === id) {
+      return {
+        ...task,
+        title: newTitle
+      }
+    }
+
+    return task
+  })
+
+  setTasks(updatedTasks)
+}
 const deleteTask = (id) => {
   const updatedTasks = tasks.filter((task) => task.id !== id)
   setTasks(updatedTasks)
@@ -48,7 +67,15 @@ const deleteTask = (id) => {
   {tasks.map((task) => (
   <div key={task.id}>
     {task.title}
-
+<button
+  onClick={() => 
+    
+    editTask(task.id)
+  }
+>
+  Edit
+</button>
+ 
     <button onClick={() => deleteTask(task.id)}>
       ❌
     </button>

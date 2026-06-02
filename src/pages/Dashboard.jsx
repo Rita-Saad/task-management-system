@@ -1,4 +1,7 @@
 import { useState } from "react"
+import TaskCard from "../components/TaskCard"
+
+
 
 function Dashboard() {
   const [tasks, setTasks] = useState([
@@ -65,23 +68,14 @@ const deleteTask = (id) => {
           <h3>Pending</h3>
 
   {tasks.map((task) => (
-  <div key={task.id}>
-    {task.title}
-<button
-  onClick={() => 
-    
-    editTask(task.id)
-  }
->
-  Edit
-</button>
- 
-    <button onClick={() => deleteTask(task.id)}>
-      ❌
-    </button>
-  </div>
+  <TaskCard
+    key={task.id}
+    task={task}
+    editTask={editTask}
+    deleteTask={deleteTask}
+  />
 ))}
-
+  
         
         </div>
 

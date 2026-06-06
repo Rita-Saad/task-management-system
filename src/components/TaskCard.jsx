@@ -1,7 +1,14 @@
+function TaskCard({ task, editTask, deleteTask ,
+  moveTask ,  handleDrag }) {
 
-function TaskCard({ task, editTask, deleteTask }) {
+
   return (
-    <div>
+     <div draggable="true"  onDragStart={() => handleDrag(task.id)}
+     
+      
+     
+     
+     >
       {task.title}
 
       <button onClick={() => editTask(task.id)}>
@@ -11,7 +18,11 @@ function TaskCard({ task, editTask, deleteTask }) {
       <button onClick={() => deleteTask(task.id)}>
         ❌
       </button>
+      <button onClick={() => moveTask(task.id)}>
+  Move
+</button>
     </div>
+  
   )
 }
 

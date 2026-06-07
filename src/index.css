@@ -4,11 +4,12 @@
   gap: 20px;
   padding: 20px;
 }
-.navbar {
-
- 
+.navbar {}
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
 }
-
 
 .column {
   width: 30%;
@@ -16,6 +17,7 @@
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  flex: 1;
 }
 
 /* الألوان */
@@ -30,4 +32,13 @@
 
 .completed {
   background-color: #d7f8d7;
+}
+
+
+button {
+  padding: 10px 15px;
+}
+input {
+  width: 100%;
+  box-sizing: border-box;
 }

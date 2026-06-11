@@ -56,7 +56,7 @@ const editTask = (id) => {
 
   setTasks(updatedTasks)
 }
-const deleteTask = (id) => {
+const deleteTask = (id) =>  {
   const updatedTasks = tasks.filter((task) => task.id !== id)
   setTasks(updatedTasks)
 }

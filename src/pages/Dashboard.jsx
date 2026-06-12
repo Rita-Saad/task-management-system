@@ -13,7 +13,7 @@ function Dashboard() {
   return savedTasks
     ? JSON.parse(savedTasks)
     : []
-})
+  })
  
   const [newTask, setNewTask] = useState("")
   const [search, setSearch] = useState("")
@@ -22,10 +22,10 @@ function Dashboard() {
     "tasks",
     JSON.stringify(tasks)
   )
-}, [tasks])
+  }, [tasks])
 
-const addTask = () => {
-  if (newTask.trim() === "") return
+  const addTask = () => {
+    if (newTask.trim() === "") return
 
   const newTaskObject = {
     id: Date.now(),
@@ -36,8 +36,8 @@ const addTask = () => {
   setTasks([...tasks, newTaskObject])
 
   setNewTask("")
-}
-const editTask = (id) => {
+  }
+  const editTask = (id) => {
   const newTitle = prompt("Enter new task title")
   
 
@@ -55,27 +55,29 @@ const editTask = (id) => {
   })
 
   setTasks(updatedTasks)
-}
-const deleteTask = (id) =>  {
+  }
+
+
+ const deleteTask = (id) =>  {
   const updatedTasks = tasks.filter((task) => task.id !== id)
   setTasks(updatedTasks)
-}
-const filteredTasks = tasks.filter((task) =>
+ }
+ const filteredTasks = tasks.filter((task) =>
   task.title.toLowerCase().includes(search.toLowerCase())
-)
-const pendingTasks = filteredTasks.filter(
+ )
+ const pendingTasks = filteredTasks.filter(
   (task) => task.status === "pending"
-)
+ )
 
-const progressTasks = filteredTasks.filter(
+ const progressTasks = filteredTasks.filter(
   (task) => task.status === "progress"
-)
+ )
 
-const completedTasks = filteredTasks.filter(
+ const completedTasks = filteredTasks.filter(
   (task) => task.status === "completed"
-)
+ )
 
-const moveTask = (id) => {
+ const moveTask = (id) => {
   const updatedTasks = tasks.map((task) => {
     if (task.id === id) {
 
@@ -106,12 +108,12 @@ const moveTask = (id) => {
 
   setTasks(updatedTasks)
 }
-const [draggedTaskId, setDraggedTaskId] = useState(null)
-const handleDrag = (id) => {
+ const [draggedTaskId, setDraggedTaskId] = useState(null)
+ const handleDrag = (id) => {
   setDraggedTaskId(id)
-}
+ }
 
-const dropTask = (newStatus) => {
+ const dropTask = (newStatus) => {
   const updatedTasks = tasks.map((task) => {
     if (task.id === draggedTaskId) {
       return {
@@ -124,74 +126,68 @@ const dropTask = (newStatus) => {
   })
 
   setTasks(updatedTasks)
-}
+ }
   return (
     <div className="controls">
       <input
-        type="text"
-        placeholder="Enter a task..."
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
+      type="text"
+      placeholder="Enter a task..."
+      value={newTask}
+      onChange={(e) => setNewTask(e.target.value)}
       />
-
-    
-
-<button onClick={addTask}>Add Task</button>
-<input
-  type="text"
-  placeholder="Search task..."
-  value={search}
-  onChange={(e) => setSearch(e.target.value)}
-/>
-
+      <button onClick={addTask}>Add Task</button>
+      <input 
+      type="text"
+      placeholder="Search task..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      />
+      
       <div className="dashboard">
         <div className="column pending"   onDragOver={(e) => e.preventDefault()}
-  onDrop={() => dropTask("pending")}>
- 
+        onDrop={() => dropTask("pending")}>
           <h3>Pending</h3>
-
- {pendingTasks.map((task) => (
-  <TaskCard
-    key={task.id}
-    task={task}
-    editTask={editTask}
-    deleteTask={deleteTask}
-    moveTask={moveTask}
-    handleDrag={handleDrag}
-  />
-))}
-  
-  
+           {pendingTasks.map((task) => (
+            <TaskCard
+            key={task.id}
+            task={task}
+            editTask={editTask}
+            deleteTask={deleteTask}
+            moveTask={moveTask}
+            handleDrag={handleDrag}
+            />
+            ))}
         </div>
 
-        <div className="column progress"   onDragOver={(e) => e.preventDefault()}  onDrop={() => dropTask("progress")}  >
+        <div className="column progress"   onDragOver={(e) => e.preventDefault()} 
+         onDrop={() => dropTask("progress")}  >
           <h3>In Progress</h3>
           {progressTasks.map((task) => (
-  <TaskCard
-    key={task.id}
-    task={task}
-    editTask={editTask}
-    deleteTask={deleteTask}
-    moveTask={moveTask}
-    handleDrag={handleDrag}
-  />
-))}
+
+           <TaskCard
+           key={task.id}
+           task={task}
+           editTask={editTask}
+           deleteTask={deleteTask}
+           moveTask={moveTask}
+           handleDrag={handleDrag}
+           />
+           ))}
         </div>
 
         <div className="column completed"   onDragOver={(e) => e.preventDefault()}
-  onDrop={() => dropTask("completed")} >
+        onDrop={() => dropTask("completed")} >
           <h3>Completed</h3>
-
-{completedTasks.map((task) => (
-  <TaskCard
-    key={task.id}
-    task={task}
-    editTask={editTask}
-    deleteTask={deleteTask}
-    moveTask={moveTask}
-    handleDrag={handleDrag}
-  />
-))}
+          {completedTasks.map((task) => (
+            <TaskCard
+            key={task.id}
+            task={task}
+            editTask={editTask}
+            deleteTask={deleteTask}
+            moveTask={moveTask}
+            handleDrag={handleDrag}
+           />
+          ))}
         </div>
       </div>
     </div>

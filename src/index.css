@@ -8,7 +8,12 @@
 @media (max-width: 768px) {
   .dashboard {
     flex-direction: column;
+    width: 100%;;
+  .column {
+  width: 80%;}
+   
   }
+ 
 }
 
 .column {

@@ -1,4 +1,4 @@
-.dashboard {
+س.dashboard {
   display: flex;
   justify-content: space-around;
   gap: 20px;
@@ -32,7 +32,6 @@
 .completed {
   background-color: #d7f8d7;
 }
-
 button {
   padding: 10px 15px;
 }

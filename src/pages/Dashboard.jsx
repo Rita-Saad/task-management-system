@@ -1,8 +1,6 @@
 import { useState , useEffect } from "react"
 import TaskCard from "../components/TaskCard"
 
-
-
 function Dashboard() {
 
 
@@ -58,7 +56,7 @@ const editTask = (id) => {
 
   setTasks(updatedTasks)
 }
-const deleteTask = (id) => {
+const deleteTask = (id) =>  {
   const updatedTasks = tasks.filter((task) => task.id !== id)
   setTasks(updatedTasks)
 }

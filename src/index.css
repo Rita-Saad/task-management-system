@@ -1,4 +1,4 @@
-س.dashboard {
+.dashboard {
   display: flex;
   justify-content: space-around;
   gap: 20px;
@@ -6,17 +6,20 @@
 }
 .navbar {}
 @media (max-width: 768px) {
+  .column{
+    width: 80%;
+  }
   .dashboard {
     flex-direction: column;
     width: 100%;;
-  .column {
-  width: 80%;}
+  
+     
    
   }
  
 }
 .column {
-  width: 30%;
+  
   min-height: 400px;
   border-radius: 10px;
   padding: 10px;

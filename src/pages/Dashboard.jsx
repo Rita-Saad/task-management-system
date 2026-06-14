@@ -1,19 +1,10 @@
-import { useState , useEffect } from "react"
+import { useState , useEffect , useContext} from "react"
 import TaskCard from "../components/TaskCard"
+import TaskContext from "../context/TaskContext"
 
 function Dashboard() {
+  const {tasks, setTasks ,addTask :addTaskContext,deleteTask,editTask} = useContext(TaskContext)
 
-
-
-
-  const [tasks, setTasks] = useState(() => {
-  const savedTasks =
-    localStorage.getItem("tasks")
-
-  return savedTasks
-    ? JSON.parse(savedTasks)
-    : []
-  })
  
   const [newTask, setNewTask] = useState("")
   const [search, setSearch] = useState("")
@@ -24,44 +15,14 @@ function Dashboard() {
   )
   }, [tasks])
 
-  const addTask = () => {
-    if (newTask.trim() === "") return
-
-  const newTaskObject = {
-    id: Date.now(),
-    title: newTask,
-    status: "pending"
+  const handleAddTask = () => {
+    if (newTask.trim() === "") 
+      return
+    addTaskContext(newTask)
+    setNewTask("")
   }
 
-  setTasks([...tasks, newTaskObject])
-
-  setNewTask("")
-  }
-  const editTask = (id) => {
-  const newTitle = prompt("Enter new task title")
   
-
-  if (!newTitle) return
-
-  const updatedTasks = tasks.map((task) => {
-    if (task.id === id) {
-      return {
-        ...task,
-        title: newTitle
-      }
-    }
-
-    return task
-  })
-
-  setTasks(updatedTasks)
-  }
-
-
- const deleteTask = (id) =>  {
-  const updatedTasks = tasks.filter((task) => task.id !== id)
-  setTasks(updatedTasks)
- }
  const filteredTasks = tasks.filter((task) =>
   task.title.toLowerCase().includes(search.toLowerCase())
  )
@@ -135,7 +96,7 @@ function Dashboard() {
       value={newTask}
       onChange={(e) => setNewTask(e.target.value)}
       />
-      <button onClick={addTask}>Add Task</button>
+      <button onClick={handleAddTask}>Add Task</button>
       <input 
       type="text"
       placeholder="Search task..."

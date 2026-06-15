@@ -1,13 +1,15 @@
 import { useState , useEffect , useContext} from "react"
 import TaskCard from "../components/TaskCard"
 import TaskContext from "../context/TaskContext"
-
+import useSearch from "../hooks/useSearch"
 function Dashboard() {
-  const {tasks, setTasks ,addTask :addTaskContext,deleteTask,editTask} = useContext(TaskContext)
 
+  const {tasks, setTasks ,addTask :addTaskContext,deleteTask,editTask,moveTask} = useContext(TaskContext)
+  
  
   const [newTask, setNewTask] = useState("")
-  const [search, setSearch] = useState("")
+  const {search,setSearch} = useSearch()
+  
   useEffect(() => {
   localStorage.setItem(
     "tasks",
@@ -21,73 +23,41 @@ function Dashboard() {
     addTaskContext(newTask)
     setNewTask("")
   }
+  const filteredTasks = tasks.filter((task) =>
+  task.title.toLowerCase().includes(search.toLowerCase())
+  )
+  const pendingTasks = filteredTasks.filter(
+  (task) => task.status === "pending"
+  )
+
+  const progressTasks = filteredTasks.filter(
+  (task) => task.status === "progress"
+  )
+
+  const completedTasks = filteredTasks.filter(
+  (task) => task.status === "completed"
+  )
+
+
+  const [draggedTaskId, setDraggedTaskId] = useState(null)
+  const handleDrag = (id) => {
+    setDraggedTaskId(id)
+  }
+
+  const dropTask = (newStatus) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === draggedTaskId) {
+        return {
+          ...task,
+          status: newStatus
+        }
+      }
+       return task
+    })
+    setTasks(updatedTasks)
+ }
 
   
- const filteredTasks = tasks.filter((task) =>
-  task.title.toLowerCase().includes(search.toLowerCase())
- )
- const pendingTasks = filteredTasks.filter(
-  (task) => task.status === "pending"
- )
-
- const progressTasks = filteredTasks.filter(
-  (task) => task.status === "progress"
- )
-
- const completedTasks = filteredTasks.filter(
-  (task) => task.status === "completed"
- )
-
- const moveTask = (id) => {
-  const updatedTasks = tasks.map((task) => {
-    if (task.id === id) {
-
-      if (task.status === "pending") {
-        return {
-          ...task,
-          status: "progress"
-        }
-      }
-
-      if (task.status === "progress") {
-        return {
-          ...task,
-          status: "completed"
-        }
-      }
-
-      if (task.status === "completed") {
-        return {
-          ...task,
-          status: "pending"
-        }
-      }
-    }
-
-    return task
-  })
-
-  setTasks(updatedTasks)
-}
- const [draggedTaskId, setDraggedTaskId] = useState(null)
- const handleDrag = (id) => {
-  setDraggedTaskId(id)
- }
-
- const dropTask = (newStatus) => {
-  const updatedTasks = tasks.map((task) => {
-    if (task.id === draggedTaskId) {
-      return {
-        ...task,
-        status: newStatus
-      }
-    }
-
-    return task
-  })
-
-  setTasks(updatedTasks)
- }
   return (
     <div className="controls">
       <input

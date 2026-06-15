@@ -1,11 +1,16 @@
-import { useState , useEffect , useContext} from "react"
+import { useState , useEffect } from "react"
 import TaskCard from "../components/TaskCard"
-import TaskContext from "../context/TaskContext"
+import useTasks from "../hooks/useTasks"
 import useSearch from "../hooks/useSearch"
 function Dashboard() {
+  const {
+  tasks,
+  setTasks,
+  addTask,
+  deleteTask,
+  editTask,
+  moveTask} = useTasks()
 
-  const {tasks, setTasks ,addTask :addTaskContext,deleteTask,editTask,moveTask} = useContext(TaskContext)
-  
  
   const [newTask, setNewTask] = useState("")
   const {search,setSearch} = useSearch()
@@ -20,7 +25,7 @@ function Dashboard() {
   const handleAddTask = () => {
     if (newTask.trim() === "") 
       return
-    addTaskContext(newTask)
+    addTask(newTask)
     setNewTask("")
   }
   const filteredTasks = tasks.filter((task) =>
@@ -59,21 +64,13 @@ function Dashboard() {
 
   
   return (
-    <div className="controls">
-      <input
-      type="text"
-      placeholder="Enter a task..."
-      value={newTask}
-      onChange={(e) => setNewTask(e.target.value)}
-      />
-      <button onClick={handleAddTask}>Add Task</button>
-      <input 
-      type="text"
-      placeholder="Search task..."
-      value={search}
-      onChange={(e) => setSearch(e.target.value)}
-      />
-      
+    <div>
+       <div className="controls">
+
+        <input type="text"  placeholder="Enter a task..." value={newTask}onChange={(e) => setNewTask(e.target.value)}/>
+        <button onClick={handleAddTask}>Add Task</button>
+        <input type="text" placeholder="Search task..." value={search} onChange={(e) => setSearch(e.target.value)}/>
+       </div>
       <div className="dashboard">
         <div className="column pending"   onDragOver={(e) => e.preventDefault()}
         onDrop={() => dropTask("pending")}>
@@ -121,7 +118,7 @@ function Dashboard() {
           ))}
         </div>
       </div>
-    </div>
+   </div>
   )
 }
 

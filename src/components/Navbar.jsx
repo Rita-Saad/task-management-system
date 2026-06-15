@@ -3,10 +3,13 @@ function Navbar() {
   return (
     
     <nav className="navbar">
-      <h1>Task Manager</h1>
-      <p>Organize your daily tasks easily</p>
+      
+      
 
-      <div className="LINK">
+      <div className="logo">
+        <h1>Task Manager</h1>
+      </div>
+      <div className="nav-links">
       <Link to="/">Dashboard</Link>
 
       <Link to="/about">About</Link>

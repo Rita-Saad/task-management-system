@@ -4,17 +4,8 @@
   gap: 20px;
   padding: 20px;
 }
-   
-.navbar{
-  background-color: #f2f2f2;
-  line-height: 20px;
-   
-  
 
-}
-.LINK{
-  text-align: right;
-}
+
 @media (max-width: 768px) {
   .column{
     width: 80%;
@@ -57,4 +48,79 @@ input {
 .controls {
   
   
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 30px;
+
+  background-color: #1e293b;
+}
+
+.logo h1 {
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  opacity: 0.8;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+
+  padding: 20px;
+}
+.controls input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.controls button {
+  padding: 10px 15px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+}
+.task-card {
+  background: white;
+
+  padding: 12px;
+
+  margin-top: 10px;
+
+  border-radius: 8px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
 }

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-
 function Users() {
     const [error, setError] =useState("")
     const [loading, setLoading] =useState(true)
@@ -9,7 +8,6 @@ function Users() {
   const getUsers = async () => {
 
   try {
-
     const response =
       await fetch(
         "https://jsonplaceholder.typicode.com/users"
